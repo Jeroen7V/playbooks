@@ -5,7 +5,7 @@
     weekday_overwrite: false
   tasks:        
     - name: Check Weekday or Overwrite
-      meta: end_play
+      meta: end_host
       when:
         - not weekday_overwrite
         - ansible_date_time.weekday_number != weekday_run
