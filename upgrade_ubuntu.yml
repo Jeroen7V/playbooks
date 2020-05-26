@@ -7,7 +7,7 @@
   tasks:        
     - name: debug
       debug:
-        var: ansible_facts
+        var: weekday_run
         
     - name: Check Weekday or Overwrite
       meta: end_play
