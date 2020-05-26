@@ -1,13 +1,16 @@
 - name: Upgrade Ubuntu Hosts
   hosts: ubuntu
   become: true
+  vars:
+    overwrite_weekday: false
   tasks:
     - name: Ansible Date Test
       debug:
         var=ansible_date_time.weekday_number
-    - name: Ansible Fact Test
+        
+    - name: Ansible Overwrite Test
       debug:
-        var=ansible_facts
+        var=overwrite_weekday
         
     - name: Autoremove Using Apt
       apt:
