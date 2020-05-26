@@ -4,13 +4,11 @@
   vars:
     overwrite_weekday: false
   tasks:
-    - name: Ansible Date Test
-      debug:
-        var=ansible_date_time.weekday_number
-        
-    - name: Ansible Overwrite Test
-      debug:
-        var=overwrite_weekday
+    - name: Check Weekday or Overwrite
+      meta: end_play
+      when:
+        - not overwrite_weekday
+        - ansible_date_time.weekday_number != "2"
         
     - name: Autoremove Using Apt
       apt:
@@ -35,5 +33,6 @@
         pre_reboot_delay: 10
         reboot_timeout: 3600
       when:
-        - restart_apt.stdout is defined and restart_apt.stdout == "1"
+        - restart_apt.stdout is defined
+        - restart_apt.stdout == "1"
 
