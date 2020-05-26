@@ -1,5 +1,5 @@
 - name: Upgrade Ubuntu Hosts
-  hosts: all
+  hosts: ubuntu
   become: true
   tasks:
     - name: Autoremove Using Apt
