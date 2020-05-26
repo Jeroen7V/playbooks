@@ -13,15 +13,7 @@
 - name: Upgrade Ubuntu Hosts
   hosts: ubuntu
   become: true
-  vars:
-    overwrite_weekday: false
-  tasks:
-    - name: Check Weekday or Overwrite
-      meta: end_play
-      when:
-        - not overwrite_weekday
-        - ansible_date_time.weekday_number != "2"
-        
+  tasks:        
     - name: Autoremove Using Apt
       apt:
         update_cache: no
