@@ -1,19 +1,16 @@
-- name: Check Weekday or Overwrite
-  hosts: localhost
-  connection: local
-  vars:
-    overwrite_weekday: false
-  tasks:
-    - name: Check Weekday or Overwrite
-      meta: end_play
-      when:
-        - not overwrite_weekday
-        - ansible_date_time.weekday_number != "8"
-
 - name: Upgrade Ubuntu Hosts
   hosts: ubuntu
   become: true
+  vars:
+    weekday_overwrite: false
+    weekday_run: "2"
   tasks:        
+    - name: Check Weekday or Overwrite
+      meta: end_play
+      when:
+        - not weekday_overwrite
+        - ansible_date_time.weekday_number != weekday_run
+        
     - name: Autoremove Using Apt
       apt:
         update_cache: no
