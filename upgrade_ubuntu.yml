@@ -3,7 +3,6 @@
   become: true
   vars:
     weekday_overwrite: false
-    weekday_run: "2"
   tasks:        
     - name: debug
       debug:
