@@ -5,6 +5,9 @@
     - name: Ansible Date Test
       debug:
         var=ansible_date_time.weekday_number
+    - name: Ansible Fact Test
+      debug:
+        var=ansible_facts
         
     - name: Autoremove Using Apt
       apt:
