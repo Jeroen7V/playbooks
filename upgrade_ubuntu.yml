@@ -2,6 +2,10 @@
   hosts: ubuntu
   become: true
   tasks:
+    - name: Ansible Date Test
+      debug:
+        var=ansible_date_time.weekday_number
+        
     - name: Autoremove Using Apt
       apt:
         update_cache: no
