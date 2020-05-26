@@ -9,7 +9,7 @@
       meta: end_play
       when:
         - not weekday_overwrite
-        - ansible_date_time.weekday_number == weekday_run
+        - ansible_date_time.weekday_number != weekday_run
         
     - name: Autoremove Using Apt
       apt:
