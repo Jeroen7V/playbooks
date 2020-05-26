@@ -5,6 +5,10 @@
     weekday_overwrite: false
     weekday_run: "2"
   tasks:        
+    - name: debug
+      debug:
+        var: ansible_facts
+        
     - name: Check Weekday or Overwrite
       meta: end_play
       when:
