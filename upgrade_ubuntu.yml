@@ -5,7 +5,7 @@
     - name: Autoremove Using Apt
       apt:
         update_cache: no
-        upgrade: no
+        upgrade: 'no'
         autoremove: yes
 
     - name: Upgrade Using Apt
