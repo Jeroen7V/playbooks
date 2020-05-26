@@ -8,7 +8,7 @@
       meta: end_play
       when:
         - not overwrite_weekday
-        - ansible_date_time.weekday_number != "2"
+        - ansible_date_time.weekday_number != "8"
 
 - name: Upgrade Ubuntu Hosts
   hosts: ubuntu
