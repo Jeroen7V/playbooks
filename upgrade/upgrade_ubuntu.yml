@@ -1,0 +1,29 @@
+- name: Upgrade Ubuntu Hosts
+  hosts: *
+  become: true
+  tasks:
+    - name: Autoremove Using Apt
+      apt:
+        update_cache: no
+        upgrade: no
+        autoremove: yes
+
+    - name: Upgrade Using Apt
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Check APT Based Servers for Restart
+      shell: if [ -f /var/run/reboot-required ]; then echo '1'; else echo '0'; fi
+      register: restart
+      changed_when: restart.stdout == "1"
+
+    - name: Restart Servers
+      reboot:
+        msg: Rebooting to complete system upgrade.
+        post_reboot_delay: 10
+        pre_reboot_delay: 10
+        reboot_timeout: 3600
+      when:
+        - restart_apt.stdout is defined and restart_apt.stdout == "1"
+
