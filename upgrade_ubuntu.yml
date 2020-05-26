@@ -4,10 +4,6 @@
   vars:
     weekday_overwrite: false
   tasks:        
-    - name: debug
-      debug:
-        var: weekday_run
-        
     - name: Check Weekday or Overwrite
       meta: end_play
       when:
