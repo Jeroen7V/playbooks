@@ -1,8 +1,0 @@
-[jve_ubuntu]
-192.168.122.70
-
-[ubuntu:children]
-jve_ubuntu
-
-[linux:children]
-ubuntu
