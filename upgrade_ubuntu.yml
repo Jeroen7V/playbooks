@@ -68,15 +68,15 @@
           title: "Upgrade Result of {{ inventory_hostname }}"
           text: '{{ "Upgrade failed! Please check logs and server status." if upgrade.stderr_lines else "Upgrade successful! Please check if server up." }}'
           sections:
-            - title: '{{ "**error log**" if upgrade.stderr_lines else "" }}'
-              text: "{{ upgrade.stderr_lines | join('\n\r') if upgrade.stderr_lines else '' }}"
-            - title: '{{ "**output log**" if upgrade.stdout_lines else "" }}'
-              text: "{{ upgrade.stdout_lines | join('\n\r') if upgrade.stdout_lines else '' }}"
             - facts:
               - name: "Start Time"
                 value: "{{ time_start.day }}/{{ time_start.month }}/{{ time_start.year }} - {{ time_start.hour }}:{{ time_start.minute }}:{{ time_start.second }}"
               - name: "End Time"
                 value: "{{ time_end.day }}/{{ time_end.month }}/{{ time_end.year }} - {{ time_end.hour }}:{{ time_end.minute }}:{{ time_end.second }}"
+            - title: '{{ "**error log**" if upgrade.stderr_lines else "" }}'
+              text: "{{ upgrade.stderr_lines | join('\n\r') if upgrade.stderr_lines else '' }}"
+            - title: '{{ "**output log**" if upgrade.stdout_lines else "" }}'
+              text: "{{ upgrade.stdout_lines | join('\n\r') if upgrade.stdout_lines else '' }}"
 
     - name: Send Result
       uri:
