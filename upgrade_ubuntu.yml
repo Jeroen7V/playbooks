@@ -48,6 +48,9 @@
         - restart.stdout is defined
         - restart.stdout == "1"
         
+    - name: Reload Facts
+      setup:
+        
     - name: Register End Time
       set_fact:
         time_end:
