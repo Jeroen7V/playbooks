@@ -13,12 +13,12 @@
     - name: Register Start Time
       set_fact:
         time_start:
-          day: ansible_date_time.day
-          month: ansible_date_time.month
-          year: ansible_date_time.year
-          hour: ansible_date_time.hour
-          minute: ansible_date_time.minute
-          second: ansible_date_time.second
+          day: "{{ ansible_date_time.day }}"
+          month: "{{ ansible_date_time.month }}"
+          year: "{{ ansible_date_time.year }}"
+          hour: "{{ ansible_date_time.hour }}"
+          minute: "{{ ansible_date_time.minute }}"
+          second: "{{ ansible_date_time.second }}"
         
     - name: Clean Up Apt
       apt:
@@ -50,7 +50,13 @@
         
     - name: Register End Time
       set_fact:
-        time_end: {{ ansible_date_time }}
+        time_end:
+          day: "{{ ansible_date_time.day }}"
+          month: "{{ ansible_date_time.month }}"
+          year: "{{ ansible_date_time.year }}"
+          hour: "{{ ansible_date_time.hour }}"
+          minute: "{{ ansible_date_time.minute }}"
+          second: "{{ ansible_date_time.second }}"
 
     - name: Calculate Result Variables
       set_fact:
