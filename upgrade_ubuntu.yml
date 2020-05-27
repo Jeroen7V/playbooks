@@ -10,16 +10,18 @@
         - not weekday_overwrite
         - ansible_date_time.weekday_number != weekday_run
         
-    - name: Autoremove Using Apt
+    - name: Clean Up Apt
       apt:
         update_cache: no
         upgrade: 'no'
         autoremove: yes
+        autoclean: yes
 
     - name: Upgrade Using Apt
       apt:
         update_cache: yes
         upgrade: dist
+      register: upgrade
 
     - name: Check APT Based Servers for Restart
       shell: if [ -f /var/run/reboot-required ]; then echo '1'; else echo '0'; fi
@@ -33,6 +35,22 @@
         pre_reboot_delay: 10
         reboot_timeout: 3600
       when:
-        - restart_apt.stdout is defined
-        - restart_apt.stdout == "1"
+        - restart.stdout is defined
+        - restart.stdout == "1"
+        
+    - name: Debug
+      debug:
+        var: upgrade
+        
+    - name: Debug
+      debug:
+        var: restart
+        
+    - name: Send Result
+      uri:
+        url: https://outlook.office.com/webhook/346d76e4-73df-477e-8d87-7037cd95ddda@25abd651-b70f-4e71-9068-45b40b2ffbd3/IncomingWebhook/c6a4406c4008411984aaa984f0ef6acd/d99bba4b-f146-4a62-bb27-02fb1ca70dbf
+        method: POST
+        body_format: json
+        body: '{"title":"Upgrade of {{inventory_hostname }}","text":"This is a test."}'
+
 
