@@ -49,8 +49,8 @@
     - name: Calculate Result Variables
       set_fact:
         upgr:
-          error: "{{ upgrade.stderr | replace("\n", "\n\r") }}"
-          output: "{{ upgrade.stdout | replace("\n", "\n\r") }}"
+          error: "{{ upgrade.stderr | replace('\n', '\n\r') }}"
+          output: "{{ upgrade.stdout | replace('\n', '\n\r') }}"
         msg:
           color: "{{ 'FF0000' if upgrade.stderr_lines else '00FF00' }}"
           title: "Upgrade Result of {{ inventory_hostname }}"
