@@ -49,8 +49,6 @@
     - name: Calculate Result Variables
       set_fact:
         msg:
-          @type: "MessageCard"
-          @context: "https://schema.org/extensions"
           themeColor: "{{ 'FF0000' if upgrade.stderr_lines else '00FF00' }}"
           title: "Upgrade Result of {{ inventory_hostname }}"
           text:  "{{ "Upgrade failed! Please check logs and server status." if upgrade.stderr_lines else "Upgrade successful! Please check if server up." }}"
