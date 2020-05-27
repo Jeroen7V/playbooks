@@ -37,25 +37,21 @@
       when:
         - restart.stdout is defined
         - restart.stdout == "1"
-        
-    - name: Debug
-      debug:
-        var: upgrade
-        
-    - name: Debug
-      debug:
-        var: restart
-        
+
     - name: Calculate Result Variables
       set_fact:
         msg:
-          themeColor: "{{ 'FF0000' if upgrade.stderr_lines else '00FF00' }}"
+          themeColor: '{{ "FF0000" if upgrade.stderr_lines else "00FF00" }}'
           title: "Upgrade Result of {{ inventory_hostname }}"
-          text:  "{{ "Upgrade failed! Please check logs and server status." if upgrade.stderr_lines else "Upgrade successful! Please check if server up." }}"
+          text: '{{ "Upgrade failed! Please check logs and server status." if upgrade.stderr_lines else "Upgrade successful! Please check if server up." }}'
           sections:
-            - title: "{{ "output log" if upgrade.stderr_lines else "error log" }}"
-              text: "{{ upgrade.stderr_lines | join('\n\r') if upgrade.stderr_lines else upgrade.stdout_lines | join('\n\r') }}"
-        
+            - title: '{{ "output log" if upgrade.stderr_lines else "error log" }}'
+              text: '{{ upgrade.stderr_lines | join("\n\r") if upgrade.stderr_lines else upgrade.stdout_lines | join("\n\r") }}'
+              
+    - name: debug
+      debug:
+        var: msg
+
     - name: Send Result
       uri:
         url: https://outlook.office.com/webhook/346d76e4-73df-477e-8d87-7037cd95ddda@25abd651-b70f-4e71-9068-45b40b2ffbd3/IncomingWebhook/c6a4406c4008411984aaa984f0ef6acd/d99bba4b-f146-4a62-bb27-02fb1ca70dbf
