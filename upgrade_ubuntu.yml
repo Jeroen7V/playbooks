@@ -52,7 +52,7 @@
         method: POST
         body_format: json
         body: |
-          {
+          '{
             {{ if upgrade.stderr_lines }}
             "themeColor": "FF0000",
             {{ else }}
@@ -60,6 +60,6 @@
             {{ endif }}
             "title":"Upgrade Result of {{ inventory_hostname }}",
             "text":"{{ upgrade.stdout }}"
-          }
+          }'
 
 
