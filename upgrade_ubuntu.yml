@@ -46,7 +46,7 @@
           text: '{{ "Upgrade failed! Please check logs and server status." if upgrade.stderr_lines else "Upgrade successful! Please check if server up." }}'
           sections:
             - title: '{{ "output log" if upgrade.stderr_lines else "error log" }}'
-              text: '{{ upgrade.stderr_lines | join("\n\r") if upgrade.stderr_lines else upgrade.stdout_lines | join("\n\r") }}'
+              text: "{{ upgrade.stderr_lines | join('\n\r') if upgrade.stderr_lines else upgrade.stdout_lines | join('\n\r') }}"
               
     - name: debug
       debug:
