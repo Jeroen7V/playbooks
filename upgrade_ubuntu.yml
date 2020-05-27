@@ -45,12 +45,13 @@
           title: "Upgrade Result of {{ inventory_hostname }}"
           text: '{{ "Upgrade failed! Please check logs and server status." if upgrade.stderr_lines else "Upgrade successful! Please check if server up." }}'
           sections:
-            - title: '{{ "error log" if upgrade.stderr_lines else "output log" }}'
-              text: "{{ upgrade.stderr_lines | join('\n\r') if upgrade.stderr_lines else upgrade.stdout_lines | join('\n\r') }}"
-              
-    - name: debug
-      debug:
-        var: msg
+            - title: '{{ "**error log**" if upgrade.stderr_lines else "" }}'
+              text: "{{ upgrade.stderr_lines | join('\n\r') if upgrade.stderr_lines else '' }}"
+            - title: '{{ "**output log**" if upgrade.stdout_lines else "" }}'
+              text: "{{ upgrade.stdout_lines | join('\n\r') if upgrade.stdout_lines else '' }}"
+            - facts:
+              - name: "Date"
+                value: "{{ ansible_date_time.day }}/{{ ansible_date_time.month }}/{{ ansible_date_time.year }}"
 
     - name: Send Result
       uri:
