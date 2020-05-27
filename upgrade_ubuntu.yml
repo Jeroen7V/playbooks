@@ -53,7 +53,7 @@
         body_format: json
         body: >
           '{
-            {{ if len(upgrade.stderr_lines) > 0 }}
+            {{ if upgrade.stderr_lines }}
             "themeColor": "FF0000",
             {{ else }}
             "themeColor": "00FF00",
