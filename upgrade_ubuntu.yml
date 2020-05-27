@@ -10,6 +10,10 @@
         - not weekday_overwrite
         - ansible_date_time.weekday_number != weekday_run
         
+    - name: Register Start Time
+      set_fact:
+        time_start: ansible_date_time
+        
     - name: Clean Up Apt
       apt:
         update_cache: no
@@ -37,6 +41,10 @@
       when:
         - restart.stdout is defined
         - restart.stdout == "1"
+        
+    - name: Register End Time
+      set_fact:
+        time_end: ansible_date_time
 
     - name: Calculate Result Variables
       set_fact:
@@ -50,8 +58,10 @@
             - title: '{{ "**output log**" if upgrade.stdout_lines else "" }}'
               text: "{{ upgrade.stdout_lines | join('\n\r') if upgrade.stdout_lines else '' }}"
             - facts:
-              - name: "Date"
-                value: "{{ ansible_date_time.day }}/{{ ansible_date_time.month }}/{{ ansible_date_time.year }}"
+              - name: "Start Time"
+                value: "{{ time_start.day }}/{{ time_start.month }}/{{ time_start.year }} - {{ time_start.hour }}:{{ time_start.minute }}:{{ time_start.second }}"
+              - name: "End Time"
+                value: "{{ time_end.day }}/{{ time_end.month }}/{{ time_end.year }} - {{ time_end.hour }}:{{ time_end.minute }}:{{ time_end.second }}"
 
     - name: Send Result
       uri:
