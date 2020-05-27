@@ -51,7 +51,7 @@
         msg:
           color: "{{ 'FF0000' if upgrade.stderr_lines else '00FF00' }}"
           title: "Upgrade Result of {{ inventory_hostname }}"
-          text:  "{{ upgrade.stdout_lines if upgrade.stderr_lines else upgrade.stderr_lines }}"
+          text:  "{{ upgrade.stderr_lines if upgrade.stderr_lines else upgrade.stdout_lines }}"
         
     - name: Send Result
       uri:
